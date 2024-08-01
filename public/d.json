@@ -1,0 +1,83 @@
+[
+    {
+      "id": 1,
+      "name": "Lasagne",
+      "ingredients": [
+        { "item": "Ground beef", "quantity": "1 lb (450g)" },
+        { "item": "Ground pork", "quantity": "1 lb (450g)" },
+        { "item": "Onion", "quantity": "1, chopped" },
+        { "item": "Garlic cloves", "quantity": "2, minced" },
+        { "item": "Carrot", "quantity": "1, finely chopped" },
+        { "item": "Celery stalk", "quantity": "1, finely chopped" },
+        { "item": "Crushed tomatoes", "quantity": "2 (14.5 oz/410g) cans" },
+        { "item": "Tomato paste", "quantity": "2 tbsp" },
+        { "item": "Beef broth", "quantity": "1 cup (240ml)" },
+        { "item": "Dried oregano", "quantity": "1 tsp" },
+        { "item": "Dried basil", "quantity": "1 tsp" },
+        { "item": "Salt", "quantity": "To taste" },
+        { "item": "Pepper", "quantity": "To taste" },
+        { "item": "Olive oil", "quantity": "2 tbsp" },
+        { "item": "Lasagne noodles", "quantity": "12" },
+        { "item": "Grated Parmesan cheese", "quantity": "1/2 cup (50g)" },
+        { "item": "Shredded mozzarella cheese", "quantity": "1 cup (100g)" }
+      ],
+      "instructions": [
+        "1. Heat olive oil in a large skillet over medium heat.",
+        "2. Add chopped onions, carrots, and celery. Cook until softened, about 5 minutes.",
+        "3. Add minced garlic and cook for another minute.",
+        "4. Add ground beef and pork. Cook until browned, breaking up the meat with a spoon.",
+        "5. Stir in crushed tomatoes, tomato paste, beef broth, oregano, basil, salt, and pepper.",
+        "6. Simmer the sauce for at least 30 minutes, stirring occasionally. Adjust seasoning as needed.",
+        "7. In a saucepan, melt butter over medium heat for the cheese sauce.",
+        "8. Stir in flour and cook for 1-2 minutes to form a roux.",
+        "9. Gradually whisk in milk, ensuring no lumps form. Cook until the sauce thickens.",
+        "10. Remove from heat and stir in Parmesan cheese, mozzarella cheese, salt, pepper, and nutmeg. Mix until smooth.",
+        "11. Cook the lasagne noodles according to package instructions until al dente. Drain and lay them out on a baking sheet.",
+        "12. Preheat your oven to 375°F (190°C).",
+        "13. Spread a thin layer of meat sauce on the bottom of a baking dish.",
+        "14. Place a layer of lasagne noodles over the sauce.",
+        "15. Spread a portion of cheese sauce over the noodles.",
+        "16. Repeat layers, ending with a layer of cheese sauce on top.",
+        "17. Sprinkle with grated Parmesan and shredded mozzarella.",
+        "18. Cover with aluminum foil and bake for 25 minutes.",
+        "19. Remove the foil and bake for an additional 25 minutes, or until the top is golden and bubbly.",
+        "20. Let the lasagne rest for at least 15 minutes before serving."
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Spaghetti Bolognese",
+      "ingredients": [
+        { "item": "Ground beef", "quantity": "1 lb (450g)" },
+        { "item": "Onion", "quantity": "1, chopped" },
+        { "item": "Garlic cloves", "quantity": "2, minced" },
+        { "item": "Carrot", "quantity": "1, finely chopped" },
+        { "item": "Celery stalk", "quantity": "1, finely chopped" },
+        { "item": "Crushed tomatoes", "quantity": "2 (14.5 oz/410g) cans" },
+        { "item": "Red wine", "quantity": "1/2 cup (120ml), optional" },
+        { "item": "Beef broth", "quantity": "1 cup (240ml)" },
+        { "item": "Tomato paste", "quantity": "2 tbsp" },
+        { "item": "Dried oregano", "quantity": "1 tsp" },
+        { "item": "Dried basil", "quantity": "1 tsp" },
+        { "item": "Sugar", "quantity": "1/2 tsp" },
+        { "item": "Salt", "quantity": "To taste" },
+        { "item": "Pepper", "quantity": "To taste" },
+        { "item": "Olive oil", "quantity": "2 tbsp" },
+        { "item": "Spaghetti", "quantity": "12 oz (340g)" },
+        { "item": "Fresh basil or parsley", "quantity": "For garnish, optional" },
+        { "item": "Grated Parmesan cheese", "quantity": "For serving" }
+      ],
+      "instructions": [
+        "1. Heat olive oil in a large skillet or saucepan over medium heat.",
+        "2. Add chopped onions, carrots, and celery. Cook until softened, about 5 minutes.",
+        "3. Add minced garlic and cook for another minute.",
+        "4. Add ground beef and cook until browned, breaking up the meat with a spoon.",
+        "5. Stir in crushed tomatoes, tomato paste, red wine (if using), beef broth, oregano, basil, sugar, salt, and pepper.",
+        "6. Simmer the sauce for at least 30 minutes, stirring occasionally. Adjust seasoning as needed.",
+        "7. While the sauce is simmering, cook spaghetti according to package instructions until al dente. Drain and set aside.",
+        "8. Toss the cooked spaghetti with the Bolognese sauce, or serve the sauce over the spaghetti.",
+        "9. Garnish with fresh basil or parsley and grated Parmesan cheese, if desired."
+      ]
+    }
+  ]
+  
