@@ -3,6 +3,7 @@ import './RecipeList.css';
 
 const RecipeList = () => {
   const [recipes, setRecipes] = useState([]);
+  const [filteredRecipes, setFilteredRecipes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [showForm, setShowForm] = useState(false);
@@ -14,6 +15,11 @@ const RecipeList = () => {
     ingredients: [{ item: '', quantity: '' }],
     instructions: [''],
   });
+  const [searchQuery, setSearchQuery] = useState('');
+  const [noResults, setNoResults] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [expandedRecipeId, setExpandedRecipeId] = useState(null);
+  const recipesPerPage = 2;
 
   useEffect(() => {
     fetch('/d.json')
@@ -25,6 +31,7 @@ const RecipeList = () => {
       })
       .then((data) => {
         setRecipes(data);
+        setFilteredRecipes(data);
         setLoading(false);
       })
       .catch((error) => {
@@ -33,9 +40,26 @@ const RecipeList = () => {
       });
   }, []);
 
+  useEffect(() => {
+    if (searchQuery) {
+      const results = recipes.filter(recipe =>
+        recipe.name.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      setFilteredRecipes(results);
+      setNoResults(results.length === 0);
+    } else {
+      setFilteredRecipes(recipes);
+      setNoResults(false);
+    }
+  }, [searchQuery, recipes]);
+
+  useEffect(() => {
+    setCurrentPage(1); // Reset to page 1 on search
+  }, [filteredRecipes]);
+
   const handleAddRecipe = () => {
     if (editMode) {
-      setRecipes(recipes.map((recipe) => 
+      setRecipes(recipes.map((recipe) =>
         recipe.id === currentRecipeId ? { ...newRecipe, id: currentRecipeId } : recipe
       ));
       setEditMode(false);
@@ -95,6 +119,7 @@ const RecipeList = () => {
 
   const handleDeleteRecipe = (id) => {
     setRecipes(recipes.filter(recipe => recipe.id !== id));
+    setFilteredRecipes(filteredRecipes.filter(recipe => recipe.id !== id));
   };
 
   const handleEditRecipe = (recipe) => {
@@ -104,12 +129,43 @@ const RecipeList = () => {
     setShowForm(true);
   };
 
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
+  const indexOfLastRecipe = currentPage * recipesPerPage;
+  const indexOfFirstRecipe = indexOfLastRecipe - recipesPerPage;
+  const currentRecipes = filteredRecipes.slice(indexOfFirstRecipe, indexOfLastRecipe);
+
+  const handleNextPage = () => {
+    if (currentPage * recipesPerPage < filteredRecipes.length) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const handlePreviousPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const toggleExpanded = (id) => {
+    setExpandedRecipeId(expandedRecipeId === id ? null : id);
+  };
+
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error loading recipes: {error.message}</p>;
 
   return (
     <div>
       <h1>Recipe List</h1>
+      <input
+        type="text"
+        placeholder="Search recipes..."
+        value={searchQuery}
+        onChange={handleSearchChange}
+        className="search-input"
+      />
       <button onClick={() => setShowForm(!showForm)}>
         {showForm ? 'Cancel' : 'Add Recipe'}
       </button>
@@ -188,30 +244,47 @@ const RecipeList = () => {
           </form>
         </div>
       )}
-      {recipes.map((recipe) => (
-        <div key={recipe.id} className="recipe">
-          <div className="recipe-header">
-            <h2>{recipe.name}</h2>
-            {recipe.image && <img src={recipe.image} alt={recipe.name} className="recipe-image" />}
+      {noResults && (
+        <p className="no-results">Recipe not found. Please try searching for a different recipe.</p>
+      )}
+      <div className="recipe-container">
+        {currentRecipes.map((recipe) => (
+          <div key={recipe.id} className="recipe">
+            <div className="recipe-header">
+              <h2>{recipe.name}</h2>
+              {recipe.image && <img src={recipe.image} alt={recipe.name} className="recipe-image" />}
+            </div>
+            <h3>Ingredients</h3>
+            <ul>
+              {recipe.ingredients.map((ingredient, index) => (
+                <li key={index}>{`${ingredient.item}: ${ingredient.quantity}`}</li>
+              ))}
+            </ul>
+            <h3>Instructions</h3>
+            <ol>
+              {recipe.instructions.slice(0, expandedRecipeId === recipe.id ? undefined : 2).map((instruction, index) => (
+                <li key={index}>{instruction}</li>
+              ))}
+            </ol>
+            {recipe.instructions.length > 2 && (
+              <button
+                className="show-more-btn"
+                onClick={() => toggleExpanded(recipe.id)}
+              >
+                {expandedRecipeId === recipe.id ? 'Show Less' : 'Show More'}
+              </button>
+            )}
+            <div className="recipe-buttons">
+              <button onClick={() => handleEditRecipe(recipe)}>Edit Recipe</button>
+              <button onClick={() => handleDeleteRecipe(recipe.id)}>Delete Recipe</button>
+            </div>
           </div>
-          <h3>Ingredients</h3>
-          <ul>
-            {recipe.ingredients.map((ingredient, index) => (
-              <li key={index}>{`${ingredient.item}: ${ingredient.quantity}`}</li>
-            ))}
-          </ul>
-          <h3>Instructions</h3>
-          <ol>
-            {recipe.instructions.map((instruction, index) => (
-              <li key={index}>{instruction}</li>
-            ))}
-          </ol>
-          <div className="recipe-buttons">
-            <button onClick={() => handleEditRecipe(recipe)}>Edit Recipe</button>
-            <button onClick={() => handleDeleteRecipe(recipe.id)}>Delete Recipe</button>
-          </div>
-        </div>
-      ))}
+        ))}
+      </div>
+      <div className="pagination-buttons">
+        <button onClick={handlePreviousPage} disabled={currentPage === 1}>Previous</button>
+        <button onClick={handleNextPage} disabled={currentPage * recipesPerPage >= filteredRecipes.length}>Next</button>
+      </div>
     </div>
   );
 };
