@@ -54,7 +54,7 @@ const RecipeList = () => {
   }, [searchQuery, recipes]);
 
   useEffect(() => {
-    setCurrentPage(1); // Reset to page 1 on search
+    setCurrentPage(1); 
   }, [filteredRecipes]);
 
   const handleAddRecipe = () => {
@@ -151,6 +151,18 @@ const RecipeList = () => {
 
   const toggleExpanded = (id) => {
     setExpandedRecipeId(expandedRecipeId === id ? null : id);
+  };
+
+  const shareRecipe = (recipe) => {
+    if (navigator.share) {
+      navigator.share({
+        title: recipe.name,
+        text: 'Check out this recipe!',
+        url: window.location.href,
+      }).catch(error => console.error('Error sharing:', error));
+    } else {
+      alert('Web Share API not supported in this browser.');
+    }
   };
 
   if (loading) return <p>Loading...</p>;
@@ -277,6 +289,7 @@ const RecipeList = () => {
             <div className="recipe-buttons">
               <button onClick={() => handleEditRecipe(recipe)}>Edit Recipe</button>
               <button onClick={() => handleDeleteRecipe(recipe.id)}>Delete Recipe</button>
+              <button onClick={() => shareRecipe(recipe)}>Share</button>
             </div>
           </div>
         ))}
