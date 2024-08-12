@@ -25,7 +25,7 @@ const RecipeList = () => {
     fetch('/d.json')
       .then((response) => {
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+          throw new Error(' Network response was not ok');
         }
         return response.json();
       })
@@ -294,7 +294,7 @@ const RecipeList = () => {
           </div>
         ))}
       </div>
-      <div className="pagination-buttons">
+      <div className="redirection-buttons">
         <button onClick={handlePreviousPage} disabled={currentPage === 1}>Previous</button>
         <button onClick={handleNextPage} disabled={currentPage * recipesPerPage >= filteredRecipes.length}>Next</button>
       </div>
