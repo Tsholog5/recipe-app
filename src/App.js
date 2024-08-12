@@ -1,6 +1,10 @@
 // src/App.js
 import React from 'react';
 import RecipeList from './Components/RecipeList';
+import Login from './Components/Login';
+import Register from './Components/Register';
+import Navigation from './Components/Navigation';
+import Home from './Components/Home';
 import './App.css';
 
 const App = () => {
