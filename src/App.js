@@ -1,22 +1,19 @@
-// src/App.js
 import React from 'react';
-import RecipeList from './Components/RecipeList';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './Components/Login';
 import Register from './Components/Register';
-import Navigation from './Components/Navigation';
-import Home from './Components/Home';
-import './App.css';
+import RecipeList from './Components/RecipeList';
+import PrivateRoute from './Components/PrivateRoute';
 
 const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1>EMBRACE THE ART OF FLAVOR</h1>
-      </header>
-      <main>
-        <RecipeList />
-      </main>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/recipes" element={<PrivateRoute element={<RecipeList />} />} />
+      </Routes>
+    </Router>
   );
 };
 

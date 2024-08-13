@@ -1,68 +1,52 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import './Login.css';
+import './Login.css'; // Import the CSS file
 
-function Login() {
-  const [email, setEmail] = useState('');
+const Login = () => {
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    try {
-      const response = await axios.post('http://localhost:3001/api/login', {
-        username: email,
-        password
-      });
-
-      if (response.status === 200) {
-        const { userId } = response.data;
-        localStorage.setItem('userId', userId);
-        navigate('/todolist');
-      } else {
-        setError('Failed to login.');
-      }
-    } catch (err) {
-      console.error('Login error:', err.response ? err.response.data : err.message);
-      setError(err.response ? err.response.data.message : 'Failed to login. Please try again.');
+  const handleLogin = (e) => {
+    e.preventDefault();
+    const storedPassword = localStorage.getItem(username);
+    if (storedPassword && storedPassword === password) {
+      localStorage.setItem('loggedIn', true);
+      navigate('/recipes'); // Redirect to the recipes page
+    } else {
+      alert('Invalid username or password');
     }
   };
 
   return (
-    <div className="form-container">
-      <form className="form" onSubmit={handleSubmit}>
-        <p className="title">Login</p>
-        <p className="message">Welcome back! Please login to your account.</p>
-
-        <label>
+    <div className="login-container">
+      <form className="login-form" onSubmit={handleLogin}>
+        <h1>Login</h1>
+        <div>
+          <label>Username:</label>
           <input
-            className="input"
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
             required
           />
-        </label>
-
-        <label>
+        </div>
+        <div>
+          <label>Password:</label>
           <input
-            className="input"
             type="password"
-            placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-        </label>
-
-        <button type="submit" className="submit-button">Login</button>
-        {error && <p className="error">{error}</p>}
+        </div>
+        <button type="submit">Login</button>
+        <p>
+          Don't have an account? <a href="/register">Register here</a>
+        </p>
       </form>
     </div>
   );
-}
+};
 
 export default Login;

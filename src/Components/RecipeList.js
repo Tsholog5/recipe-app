@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import './RecipeList.css';
+import { useNavigate } from 'react-router-dom';
+import './RecipeList.css'; // Assuming you have some styles for RecipeList
 
 const RecipeList = () => {
   const [recipes, setRecipes] = useState([]);
@@ -20,12 +21,13 @@ const RecipeList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [expandedRecipeId, setExpandedRecipeId] = useState(null);
   const recipesPerPage = 2;
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch('/d.json')
       .then((response) => {
         if (!response.ok) {
-          throw new Error(' Network response was not ok');
+          throw new Error('Network response was not ok');
         }
         return response.json();
       })
@@ -165,11 +167,17 @@ const RecipeList = () => {
     }
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem('loggedIn');
+    navigate('/');
+  };
+
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error loading recipes: {error.message}</p>;
 
   return (
     <div>
+      <button onClick={handleLogout}>Logout</button>
       <h1>Recipe List</h1>
       <input
         type="text"
@@ -294,7 +302,7 @@ const RecipeList = () => {
           </div>
         ))}
       </div>
-      <div className="redirection-buttons">
+      <div className="pagination-buttons">
         <button onClick={handlePreviousPage} disabled={currentPage === 1}>Previous</button>
         <button onClick={handleNextPage} disabled={currentPage * recipesPerPage >= filteredRecipes.length}>Next</button>
       </div>
