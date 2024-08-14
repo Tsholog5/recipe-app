@@ -2,9 +2,9 @@
     {
       "id": 1,
       "name": "Pancakes",
-      "image": "https://example.com/pancakes.jpg",
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBmVlvfBZYG43tuMhScU-8ciCtmgf9j69A9Q&s",
       "servings": "4",
-      "preparation_time": "20 minutes",
+      "prepTime": "20 minutes",
       "category": "Breakfast",
       "ingredients": [
         { "item": "Flour", "quantity": "1 cup" },
@@ -23,9 +23,9 @@
     {
       "id": 2,
       "name": "Greek Yogurt Smoothie",
-      "image": "https://example.com/greek-yogurt-smoothie.jpg",
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbrJeYB2EkCEBXiHyUrgSWD8GDNJQK3Aau9g&s",
       "servings": "2",
-      "preparation_time": "10 minutes",
+      "prepTime": "10 minutes",
       "category": "Breakfast",
       "ingredients": [
         { "item": "Greek Yogurt", "quantity": "1 cup" },
@@ -43,9 +43,9 @@
     {
       "id": 3,
       "name": "Caesar Salad",
-      "image": "https://example.com/caesar-salad.jpg",
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTl9Uh04RzJaKdOJtnFR6Unnv5qlKe4tmAfOQ&s",
       "servings": "2",
-      "preparation_time": "15 minutes",
+      "prepTime": "15 minutes",
       "category": "Lunch",
       "ingredients": [
         { "item": "Romaine Lettuce", "quantity": "1 head, chopped" },
@@ -62,9 +62,9 @@
     {
       "id": 4,
       "name": "Spaghetti Bolognese",
-      "image": "https://example.com/spaghetti.jpg",
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuRRSnuTwGv9fBqYx67nh6bF2Ego0ON21WVg&s",
       "servings": "4",
-      "preparation_time": "1 hour",
+      "prepTime": "1 hour",
       "category": "Dinner",
       "ingredients": [
         { "item": "Ground beef", "quantity": "1 lb (450g)" },
@@ -100,8 +100,9 @@
     {
       "id": 5,
       "name": "Lasagne",
-      "servings": 6,
-      "preparation_time": "1 hour 30 minutes",
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5xYVX7YUcHfVComa14ch56YwV8fuwU-QwZQ&s",
+      "servings": "6",
+      "prepTime": "1 hour 30 minutes",
       "category": "Dinner",
       "ingredients": [
         { "item": "Ground beef", "quantity": "1 lb (450g)" },
@@ -148,9 +149,9 @@
     {
       "id": 6,
       "name": "Chicken Stir-Fry",
-      "image": "https://example.com/chicken-stir-fry.jpg",
+      "image": "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/recipe-image-legacy-id-14362_11-f85caa7.jpg",
       "servings": "4",
-      "preparation_time": "25 minutes",
+      "prepTime": "25 minutes",
       "category": "Dinner",
       "ingredients": [
         { "item": "Chicken breast", "quantity": "1 lb (450g), sliced" },
@@ -177,8 +178,9 @@
     {
       "id": 7,
       "name": "Seafood Boil",
+      "image": "https://www.dinneratthezoo.com/wp-content/uploads/2019/05/seafood-boil-5.jpg",
       "servings": 4,
-      "preparation_time": "45 minutes",
+      "prepTime": "45 minutes",
       "category": "Dinner",
       "ingredients": [
         { "item": "Large shrimp", "quantity": "1 lb (450g), peeled and deveined" },
@@ -209,8 +211,9 @@
     {
       "id": 8,
       "name": "Beef Stew",
+      "image": "https://i2.wp.com/www.downshiftology.com/wp-content/uploads/2023/09/Beef-Stew-main.jpg",
       "servings": 6,
-      "preparation_time": "2 hours",
+      "prepTime": "2 hours",
       "category": "Dinner",
       "ingredients": [
         { "item": "Beef chuck", "quantity": "2 lbs (900g), cut into cubes" },
@@ -243,8 +246,9 @@
     {
       "id": 9,
       "name": "Chicken Stew",
+      "image": "https://feastwithsafiya.com/wp-content/uploads/2022/03/chicken-curry-recipe.jpg",
       "servings": 4,
-      "preparation_time": "1 hour",
+      "prepTime":"1 hour",
       "category": "Dinner",
       "ingredients": [
         { "item": "Chicken thighs", "quantity": "1.5 lbs (680g), boneless and skinless, cut into chunks" },

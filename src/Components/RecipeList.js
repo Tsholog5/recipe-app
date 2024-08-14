@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './RecipeList.css'; // Assuming you have some styles for RecipeList
+import './RecipeList.css';
 
 const RecipeList = () => {
-  const [recipes, setRecipes] = useState([]);
+  const [recipesByCategory, setRecipesByCategory] = useState({});
   const [filteredRecipes, setFilteredRecipes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -13,6 +13,9 @@ const RecipeList = () => {
   const [newRecipe, setNewRecipe] = useState({
     name: '',
     image: '',
+    servings: '',
+    category: '',
+    prepTime: '',
     ingredients: [{ item: '', quantity: '' }],
     instructions: [''],
   });
@@ -20,7 +23,8 @@ const RecipeList = () => {
   const [noResults, setNoResults] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [expandedRecipeId, setExpandedRecipeId] = useState(null);
-  const recipesPerPage = 2;
+  const [selectedCategory, setSelectedCategory] = useState('All');
+  const recipesPerPage = 3;
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -32,7 +36,15 @@ const RecipeList = () => {
         return response.json();
       })
       .then((data) => {
-        setRecipes(data);
+        const categorizedRecipes = data.reduce((acc, recipe) => {
+          const { category } = recipe;
+          if (!acc[category]) {
+            acc[category] = [];
+          }
+          acc[category].push(recipe);
+          return acc;
+        }, {});
+        setRecipesByCategory(categorizedRecipes);
         setFilteredRecipes(data);
         setLoading(false);
       })
@@ -43,36 +55,56 @@ const RecipeList = () => {
   }, []);
 
   useEffect(() => {
+    let results = [];
     if (searchQuery) {
-      const results = recipes.filter(recipe =>
+      results = Object.values(recipesByCategory).flat().filter(recipe =>
         recipe.name.toLowerCase().includes(searchQuery.toLowerCase())
       );
-      setFilteredRecipes(results);
-      setNoResults(results.length === 0);
     } else {
-      setFilteredRecipes(recipes);
-      setNoResults(false);
+      results = Object.values(recipesByCategory).flat();
     }
-  }, [searchQuery, recipes]);
+    if (selectedCategory !== 'All') {
+      results = results.filter(recipe =>
+        recipe.category === selectedCategory
+      );
+    }
+    setFilteredRecipes(results);
+    setNoResults(results.length === 0);
+  }, [searchQuery, recipesByCategory, selectedCategory]);
 
   useEffect(() => {
-    setCurrentPage(1); 
+    setCurrentPage(1);
   }, [filteredRecipes]);
 
   const handleAddRecipe = () => {
     if (editMode) {
-      setRecipes(recipes.map((recipe) =>
-        recipe.id === currentRecipeId ? { ...newRecipe, id: currentRecipeId } : recipe
-      ));
+      setRecipesByCategory(prevCategories => {
+        const updatedCategories = { ...prevCategories };
+        const updatedCategory = updatedCategories[newRecipe.category].map(recipe =>
+          recipe.id === currentRecipeId ? { ...newRecipe, id: currentRecipeId } : recipe
+        );
+        updatedCategories[newRecipe.category] = updatedCategory;
+        return updatedCategories;
+      });
       setEditMode(false);
       setCurrentRecipeId(null);
     } else {
-      setRecipes([...recipes, { ...newRecipe, id: recipes.length + 1 }]);
+      setRecipesByCategory(prevCategories => {
+        const updatedCategories = { ...prevCategories };
+        if (!updatedCategories[newRecipe.category]) {
+          updatedCategories[newRecipe.category] = [];
+        }
+        updatedCategories[newRecipe.category].push({ ...newRecipe, id: Date.now() });
+        return updatedCategories;
+      });
     }
     setShowForm(false);
     setNewRecipe({
       name: '',
       image: '',
+      servings: '',
+      category: '',
+      prepTime: '',
       ingredients: [{ item: '', quantity: '' }],
       instructions: [''],
     });
@@ -120,7 +152,12 @@ const RecipeList = () => {
   };
 
   const handleDeleteRecipe = (id) => {
-    setRecipes(recipes.filter(recipe => recipe.id !== id));
+    setRecipesByCategory(prevCategories => {
+      const updatedCategories = { ...prevCategories };
+      const updatedCategory = updatedCategories[newRecipe.category].filter(recipe => recipe.id !== id);
+      updatedCategories[newRecipe.category] = updatedCategory;
+      return updatedCategories;
+    });
     setFilteredRecipes(filteredRecipes.filter(recipe => recipe.id !== id));
   };
 
@@ -133,6 +170,10 @@ const RecipeList = () => {
 
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
+  };
+
+  const handleCategoryChange = (category) => {
+    setSelectedCategory(category);
   };
 
   const indexOfLastRecipe = currentPage * recipesPerPage;
@@ -175,10 +216,17 @@ const RecipeList = () => {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error loading recipes: {error.message}</p>;
 
+  // Create a list of categories including "All"
+  const categories = ['All', ...Object.keys(recipesByCategory)];
+
+  const totalPages = Math.ceil(filteredRecipes.length / recipesPerPage);
+
   return (
     <div>
-      <button onClick={handleLogout}>Logout</button>
-      <h1>Recipe List</h1>
+      <div className="header">
+        <h1>Recipe List</h1>
+        <button className="logout-button" onClick={handleLogout}>Logout</button>
+      </div>
       <input
         type="text"
         placeholder="Search recipes..."
@@ -186,9 +234,22 @@ const RecipeList = () => {
         onChange={handleSearchChange}
         className="search-input"
       />
-      <button onClick={() => setShowForm(!showForm)}>
-        {showForm ? 'Cancel' : 'Add Recipe'}
-      </button>
+      <div className="filters">
+        <button onClick={() => setShowForm(!showForm)}>
+          {showForm ? 'Cancel' : 'Add Recipe'}
+        </button>
+      </div>
+      <div className="category-buttons">
+        {categories.map((category) => (
+          <button
+            key={category}
+            className={`category-button ${selectedCategory === category ? 'active' : ''}`}
+            onClick={() => handleCategoryChange(category)}
+          >
+            {category}
+          </button>
+        ))}
+      </div>
       {showForm && (
         <div className="recipe-form">
           <h2>{editMode ? 'Edit Recipe' : 'Add a New Recipe'}</h2>
@@ -212,6 +273,39 @@ const RecipeList = () => {
                   type="text"
                   name="image"
                   value={newRecipe.image}
+                  onChange={handleInputChange}
+                />
+              </label>
+            </div>
+            <div>
+              <label>
+                Servings:
+                <input
+                  type="text"
+                  name="servings"
+                  value={newRecipe.servings}
+                  onChange={handleInputChange}
+                />
+              </label>
+            </div>
+            <div>
+              <label>
+                Category:
+                <input
+                  type="text"
+                  name="category"
+                  value={newRecipe.category}
+                  onChange={handleInputChange}
+                />
+              </label>
+            </div>
+            <div>
+              <label>
+                Preparation Time:
+                <input
+                  type="text"
+                  name="prepTime"
+                  value={newRecipe.prepTime}
                   onChange={handleInputChange}
                 />
               </label>
@@ -274,6 +368,9 @@ const RecipeList = () => {
               <h2>{recipe.name}</h2>
               {recipe.image && <img src={recipe.image} alt={recipe.name} className="recipe-image" />}
             </div>
+            <p><strong>Servings:</strong> {recipe.servings}</p>
+            <p><strong>Category:</strong> {recipe.category}</p>
+            <p><strong>Preparation Time:</strong> {recipe.prepTime}</p>
             <h3>Ingredients</h3>
             <ul>
               {recipe.ingredients.map((ingredient, index) => (
@@ -304,7 +401,16 @@ const RecipeList = () => {
       </div>
       <div className="pagination-buttons">
         <button onClick={handlePreviousPage} disabled={currentPage === 1}>Previous</button>
-        <button onClick={handleNextPage} disabled={currentPage * recipesPerPage >= filteredRecipes.length}>Next</button>
+        {[...Array(totalPages)].map((_, index) => (
+          <button
+            key={index + 1}
+            onClick={() => setCurrentPage(index + 1)}
+            className={`page-button ${currentPage === index + 1 ? 'active' : ''}`}
+          >
+            {index + 1}
+          </button>
+        ))}
+        <button onClick={handleNextPage} disabled={currentPage === totalPages}>Next</button>
       </div>
     </div>
   );

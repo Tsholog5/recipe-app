@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import './Register.css'; // Import the CSS file
 
 const Register = () => {
+  const [email, setEmail] = useState(''); // State for email
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -24,7 +25,10 @@ const Register = () => {
       return;
     }
 
-    localStorage.setItem(username, password);
+    // Save username, email, and password as an object in localStorage
+    const userData = { email, password };
+    localStorage.setItem(username, JSON.stringify(userData));
+
     navigate('/'); // Redirect to the login page
   };
 
@@ -32,6 +36,15 @@ const Register = () => {
     <div className="register-container">
       <form className="register-form" onSubmit={handleRegister}>
         <h1>Register</h1>
+        <div>
+          <label>Email:</label>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+        </div>
         <div>
           <label>Username:</label>
           <input
