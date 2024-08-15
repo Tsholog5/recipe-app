@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Login.css'; // Import the CSS file
+import './Login.css';
+import logo from '../recipelogo.jpg'; // Adjust the path as needed
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -20,6 +21,9 @@ const Login = () => {
 
   return (
     <div className="login-container">
+      <div className="logo-container">
+        <img src={logo} alt="Recipe Logo" className="logo" />
+      </div>
       <form className="login-form" onSubmit={handleLogin}>
         <h1>Login</h1>
         <div>

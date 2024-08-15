@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Register.css'; // Import the CSS file
+import './Register.css';
+import logo from '../recipelogo.jpg'; 
 
 const Register = () => {
-  const [email, setEmail] = useState(''); // State for email
+  const [email, setEmail] = useState(''); 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -18,22 +19,25 @@ const Register = () => {
       return;
     }
 
-    // Save user credentials in localStorage (for demonstration purposes)
+    
     const existingUser = localStorage.getItem(username);
     if (existingUser) {
       setRegistrationError('Username already exists');
       return;
     }
 
-    // Save username, email, and password as an object in localStorage
+    
     const userData = { email, password };
     localStorage.setItem(username, JSON.stringify(userData));
 
-    navigate('/'); // Redirect to the login page
+    navigate('/'); 
   };
 
   return (
     <div className="register-container">
+      <div className="logo-container">
+        <img src={logo} alt="Recipe Logo" className="logo" />
+      </div>
       <form className="register-form" onSubmit={handleRegister}>
         <h1>Register</h1>
         <div>

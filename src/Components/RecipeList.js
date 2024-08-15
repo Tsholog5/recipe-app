@@ -24,6 +24,15 @@ const RecipeList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [expandedRecipeId, setExpandedRecipeId] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState('All');
+  const [showProfileForm, setShowProfileForm] = useState(false);
+  const [userProfile, setUserProfile] = useState({
+    name: '',
+    surname: '',
+    cellNumber: '',
+    email: '',
+    phoneNumber: '',
+  });
+
   const recipesPerPage = 3;
   const navigate = useNavigate();
 
@@ -176,6 +185,20 @@ const RecipeList = () => {
     setSelectedCategory(category);
   };
 
+  const handleProfileChange = (e) => {
+    const { name, value } = e.target;
+    setUserProfile((prevProfile) => ({
+      ...prevProfile,
+      [name]: value,
+    }));
+  };
+
+  const handleProfileSubmit = (e) => {
+    e.preventDefault();
+    console.log('User Profile:', userProfile);
+    setShowProfileForm(false);
+  };
+
   const indexOfLastRecipe = currentPage * recipesPerPage;
   const indexOfFirstRecipe = indexOfLastRecipe - recipesPerPage;
   const currentRecipes = filteredRecipes.slice(indexOfFirstRecipe, indexOfLastRecipe);
@@ -225,7 +248,12 @@ const RecipeList = () => {
     <div>
       <div className="header">
         <h1>Recipe List</h1>
-        <button className="logout-button" onClick={handleLogout}>Logout</button>
+        <div className="header-buttons">
+          <button className="profile-button" onClick={() => setShowProfileForm(!showProfileForm)}>
+            Profile
+          </button>
+          <button className="logout-button" onClick={handleLogout}>Logout</button>
+        </div>
       </div>
       <input
         type="text"
@@ -412,6 +440,74 @@ const RecipeList = () => {
         ))}
         <button onClick={handleNextPage} disabled={currentPage === totalPages}>Next</button>
       </div>
+      {showProfileForm && (
+        <div className="profile-form">
+          <h2>User Profile</h2>
+          <form onSubmit={handleProfileSubmit}>
+            <div>
+              <label>
+                Name:
+                <input
+                  type="text"
+                  name="name"
+                  value={userProfile.name}
+                  onChange={handleProfileChange}
+                  required
+                />
+              </label>
+            </div>
+            <div>
+              <label>
+                Surname:
+                <input
+                  type="text"
+                  name="surname"
+                  value={userProfile.surname}
+                  onChange={handleProfileChange}
+                  required
+                />
+              </label>
+            </div>
+            <div>
+              <label>
+                Cell Number:
+                <input
+                  type="text"
+                  name="cellNumber"
+                  value={userProfile.cellNumber}
+                  onChange={handleProfileChange}
+                  required
+                />
+              </label>
+            </div>
+            <div>
+              <label>
+                Email:
+                <input
+                  type="email"
+                  name="email"
+                  value={userProfile.email}
+                  onChange={handleProfileChange}
+                  required
+                />
+              </label>
+            </div>
+            <div>
+              <label>
+                Phone Number:
+                <input
+                  type="text"
+                  name="phoneNumber"
+                  value={userProfile.phoneNumber}
+                  onChange={handleProfileChange}
+                  required
+                />
+              </label>
+            </div>
+            <button type="submit">Save Profile</button>
+          </form>
+        </div>
+      )}
     </div>
   );
 };

@@ -1,51 +1,50 @@
-/* General styling for the recipe list page */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
     background-color: #f4f4f4;
-  }
-  
-  .header {
+}
+
+.header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 20px;
     background-color: #333;
     color: #fff;
-  }
-  
-  .header h1 {
+}
+
+.header h1 {
     margin: 0;
-  }
-  
-  .logout-button {
+}
+
+.logout-button {
     background-color: #e74c3c;
     color: #fff;
     border: none;
     padding: 10px 20px;
     cursor: pointer;
     font-size: 16px;
-  }
-  
-  .logout-button:hover {
+}
+
+.logout-button:hover {
     background-color: #c0392b;
-  }
-  
-  .search-input {
+}
+
+.search-input {
     width: 100%;
     padding: 10px;
     margin: 20px 0;
     font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 4px;
-  }
-  
-  .filters {
+}
+
+.filters {
     margin: 20px 0;
-  }
-  
-  .filters button {
+}
+
+.filters button {
     padding: 10px 20px;
     background-color: #3498db;
     color: #fff;
@@ -53,19 +52,19 @@ body {
     cursor: pointer;
     font-size: 16px;
     border-radius: 4px;
-  }
-  
-  .filters button:hover {
+}
+
+.filters button:hover {
     background-color: #2980b9;
-  }
-  
-  .category-buttons {
+}
+
+.category-buttons {
     display: flex;
     justify-content: center;
     margin: 20px 0;
-  }
-  
-  .category-button {
+}
+
+.category-button {
     padding: 10px 20px;
     background-color: #3498db;
     color: #fff;
@@ -74,47 +73,53 @@ body {
     font-size: 16px;
     border-radius: 4px;
     margin: 0 5px;
-  }
-  
-  .category-button.active {
+    transition: background-color 0.3s, font-weight 0.2s; /* Added font-weight transition */
+}
+
+.category-button.active {
     background-color: #2980b9;
-  }
-  
-  .recipe-form {
+}
+
+.category-button:hover {
+    background-color: #2980b9;
+    font-weight: bold; /* Make text bolder on hover */
+}
+
+.recipe-form {
     background-color: #fff;
     padding: 20px;
     margin: 20px auto;
     border-radius: 4px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     max-width: 600px;
-  }
-  
-  .recipe-form h2 {
+}
+
+.recipe-form h2 {
     margin-top: 0;
-  }
-  
-  .recipe-form form {
+}
+
+.recipe-form form {
     display: flex;
     flex-direction: column;
-  }
-  
-  .recipe-form label {
+}
+
+.recipe-form label {
     margin: 10px 0;
-  }
-  
-  .recipe-form input,
-  .recipe-form textarea {
+}
+
+.recipe-form input,
+.recipe-form textarea {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 16px;
-  }
-  
-  .recipe-form textarea {
+}
+
+.recipe-form textarea {
     resize: vertical;
-  }
-  
-  .recipe-form button {
+}
+
+.recipe-form button {
     padding: 10px 20px;
     background-color: #27ae60;
     color: #fff;
@@ -123,20 +128,20 @@ body {
     font-size: 16px;
     border-radius: 4px;
     margin-top: 10px;
-  }
-  
-  .recipe-form button:hover {
+}
+
+.recipe-form button:hover {
     background-color: #1e8449;
-  }
-  
-  .recipe-container {
+}
+
+.recipe-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     margin: 20px;
-  }
-  
-  .recipe {
+}
+
+.recipe {
     background-color: #fff;
     padding: 20px;
     margin: 10px;
@@ -144,39 +149,40 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     max-width: 300px;
     width: 100%;
-  }
-  
-  .recipe-header {
+}
+
+.recipe-header {
     text-align: center;
-  }
-  
-  .recipe-header img {
+}
+
+.recipe-header img {
     max-width: 100%;
     border-radius: 4px;
-  }
-  
-  .recipe h2 {
+    text-align: center;
+}
+
+.recipe h2 {
     font-size: 20px;
     margin: 10px 0;
-  }
-  
-  .recipe p {
+}
+
+.recipe p {
     margin: 5px 0;
-  }
-  
-  .recipe ul,
-  .recipe ol {
+}
+
+.recipe ul,
+.recipe ol {
     margin: 10px 0;
     padding-left: 20px;
-  }
-  
-  .recipe-buttons {
+}
+
+.recipe-buttons {
     display: flex;
     justify-content: space-between;
     margin-top: 10px;
-  }
-  
-  .recipe-buttons button {
+}
+
+.recipe-buttons button {
     padding: 5px 10px;
     background-color: #3498db;
     color: #fff;
@@ -184,13 +190,13 @@ body {
     cursor: pointer;
     font-size: 14px;
     border-radius: 4px;
-  }
-  
-  .recipe-buttons button:hover {
+}
+
+.recipe-buttons button:hover {
     background-color: #2980b9;
-  }
-  
-  .show-more-btn {
+}
+
+.show-more-btn {
     padding: 5px 10px;
     background-color: #f39c12;
     color: #fff;
@@ -199,25 +205,25 @@ body {
     font-size: 14px;
     border-radius: 4px;
     margin-top: 10px;
-  }
-  
-  .show-more-btn:hover {
+}
+
+.show-more-btn:hover {
     background-color: #e67e22;
-  }
-  
-  .no-results {
+}
+
+.no-results {
     text-align: center;
     font-size: 18px;
     color: #e74c3c;
-  }
-  
-  .pagination-buttons {
+}
+
+.pagination-buttons {
     display: flex;
     justify-content: center;
     margin: 20px 0;
-  }
-  
-  .pagination-buttons button {
+}
+
+.pagination-buttons button {
     padding: 10px 15px;
     background-color: #3498db;
     color: #fff;
@@ -226,15 +232,112 @@ body {
     font-size: 16px;
     border-radius: 4px;
     margin: 0 5px;
-  }
-  
-  .pagination-buttons button:disabled {
+}
+
+.pagination-buttons button:disabled {
     background-color: #bdc3c7;
     cursor: not-allowed;
-  }
-  
-  .page-button.active {
+}
+
+.page-button.active {
     font-weight: bold;
     background-color: #2980b9;
-  }
-  
+}
+
+.profile-form {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.profile-form form {
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-form div {
+    margin-bottom: 10px;
+}
+
+.profile-form label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.profile-form input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.profile-form button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.profile-form button:hover {
+    background-color: #0056b3;
+}
+
+.profile-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    background-color: #28a745;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    text-align: center;
+}
+
+.profile-button:hover {
+    background-color: #218838; 
+    transform: scale(1.05); 
+}
+
+.profile-button:active {
+    background-color: #1e7e34; 
+}
+
+/* Add Recipe button */
+.add-recipe-button {
+    width: 50px;
+    height: 50px;
+    background-color: #27ae60;
+    color: #fff;
+    border: none;
+    border-radius: 50%; /* Makes the button round */
+    font-size: 24px; /* Adjust font size to fit the + symbol */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s, font-weight 0.2s; /* Added font-weight transition */
+    margin: 20px;
+}
+
+.add-recipe-button:hover {
+    background-color: #1e8449;
+    font-weight: bold; /* Make text bolder on hover */
+}
+
+.add-recipe-button:active {
+    background-color: #1e7e34;
+    transform: scale(0.95); /* Slightly shrink button on click */
+}
