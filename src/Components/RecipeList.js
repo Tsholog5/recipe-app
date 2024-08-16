@@ -263,20 +263,17 @@ const RecipeList = () => {
         className="search-input"
       />
       <div className="filters">
-        <button onClick={() => setShowForm(!showForm)}>
-          {showForm ? 'Cancel' : 'Add Recipe'}
-        </button>
-      </div>
-      <div className="category-buttons">
-        {categories.map((category) => (
-          <button
-            key={category}
-            className={`category-button ${selectedCategory === category ? 'active' : ''}`}
-            onClick={() => handleCategoryChange(category)}
-          >
-            {category}
-          </button>
-        ))}
+        <div className="category-buttons">
+          {categories.map((category) => (
+            <button
+              key={category}
+              className={`category-button ${selectedCategory === category ? 'active' : ''}`}
+              onClick={() => handleCategoryChange(category)}
+            >
+              {category}
+            </button>
+          ))}
+        </div>
       </div>
       {showForm && (
         <div className="recipe-form">
@@ -508,6 +505,12 @@ const RecipeList = () => {
           </form>
         </div>
       )}
+      <button
+        className="add-recipe-button"
+        onClick={() => setShowForm(!showForm)}
+      >
+        {showForm ? 'Cancel' : '+'}
+      </button>
     </div>
   );
 };
